@@ -1,21 +1,32 @@
 (function () {
+    // Matter.use('matter-wrap');
+
+    const worldWidth = 800;
+    const worldHeight = 600;
+    
     const defaultBodyProperties = {
         frictionStatic: 0,
-        restitution: 1,
-        density: 0.04,
+        restitution: 1.02,
+        density: 0.01,
         frictionAir: 0,
-        friction: 1
+        friction: 0,
+        plugin: {
+            wrap: {
+                min: {
+                    x: 0,
+                    y: 0
+                },
+                max: {
+                    x: worldWidth,
+                    y: worldHeight
+                }
+            }
+        }
     };
-    var Engine = Matter.Engine,
-        Render = Matter.Render,
-        Runner = Matter.Runner,
-        Composites = Matter.Composites,
-        World = Matter.World,
-        Bodies = Matter.Bodies;
 
     // create engine
-    var engine = Engine.create({
-            world: World.create({
+    var engine = Matter.Engine.create({
+            world: Matter.World.create({
                 gravity: {
                     x: 0, y: 0, scale: 0.001
                 }
@@ -23,48 +34,50 @@
         }),
         world = engine.world;
 
-    console.log(world)
-
     // create renderer
-    var render = Render.create({
+    var render = Matter.Render.create({
         element: document.body,
         engine: engine,
         options: {
-            width: 800,
-            height: 600,
+            width: worldWidth,
+            height: worldHeight,
             showAngleIndicator: true
         }
     });
 
-    Render.run(render);
+    Matter.Render.run(render);
 
     // create runner
-    var runner = Runner.create();
-    Runner.run(runner, engine);
+    var runner = Matter.Runner.create();
+    Matter.Runner.run(runner, engine);
 
-    const circle = Bodies.circle(200, 190, 40, Object.assign({}, defaultBodyProperties));
-    const circle1 = Bodies.circle(600, 200, 40, Object.assign({}, defaultBodyProperties));
-    const bound = Matter.Bounds.create(Matter.Vertices.fromPath('1 1 799 0 800 600 0 600'));
-    World.add(world, bound);
-    World.addBody(world, circle);
-    World.addBody(world, circle1);
-    Matter.Body.applyForce(circle, {x: 200, y: 190}, {x: 1, y: 0});
-    Matter.Body.applyForce(circle1, {x: 600, y: 200}, {x: -1, y: 0});
+    // const bodies = createParticles(4);
+    const stack = Matter.Composites.stack(50, 50, 5, 3, 100, 100, (x, y) => {
+        const circle = Matter.Bodies.circle(x, y, 20, Object.assign({}, defaultBodyProperties, {
+            // collisionFilter: {
+            //     group: -1
+            // }
+        }));
+        Matter.Body.setVelocity(circle, {x: (Math.random() - 0.5) * 30, y: (Math.random() - 0.5) * 10});
+        console.log(circle.restitution);
+        return circle;
+    });
+    Matter.World.add(world, stack);
 
-    World.add(world, [
+    Matter.World.add(world, [
         // walls
-        Bodies.rectangle(400, 0, 800, 50, Object.assign({}, defaultBodyProperties, {isStatic: true})),
-        Bodies.rectangle(400, 600, 800, 50, Object.assign({}, defaultBodyProperties, {isStatic: true})),
-        Bodies.rectangle(800, 300, 50, 600, Object.assign({}, defaultBodyProperties, {isStatic: true})),
-        Bodies.rectangle(0, 300, 50, 600, Object.assign({}, defaultBodyProperties, {isStatic: true}))
+        Matter.Bodies.rectangle(400, 0, worldWidth, 50, Object.assign({}, defaultBodyProperties, {isStatic: true})),
+        Matter.Bodies.rectangle(400, worldHeight, worldWidth, 50, Object.assign({}, defaultBodyProperties, {isStatic: true})),
+        Matter.Bodies.rectangle(worldWidth, 300, 50, worldHeight, Object.assign({}, defaultBodyProperties, {isStatic: true})),
+        Matter.Bodies.rectangle(0, 300, 50, worldHeight, Object.assign({}, defaultBodyProperties, {isStatic: true}))
     ]);
 
     // Engine.update(engine);
 
     // fit the render viewport to the scene
-    Render.lookAt(render, {
+    Matter.Render.lookAt(render, {
         min: {x: 0, y: 0},
-        max: {x: 800, y: 600}
+        max: {x: worldWidth, y: worldHeight}
     });
 
 })();
