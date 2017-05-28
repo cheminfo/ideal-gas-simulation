@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "matter-js": "^0.12.0",
-    "matter-wrap": "^0.1.3"
+    "p2": "^0.7.1"
   }
 }
