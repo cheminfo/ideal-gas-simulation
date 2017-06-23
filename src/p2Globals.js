@@ -9,6 +9,11 @@ export const world = new p2.World({
     gravity: [0, 0]
 });
 
+world.addContactMaterial(new p2.ContactMaterial(restitutionMaterial, restitutionMaterial, {
+    restitution: 1,
+    stiffness: Number.MAX_VALUE
+}));
+
 world.on('postBroadphase', function (data) {
     // get collision callback
     // console.log(data.pairs);
