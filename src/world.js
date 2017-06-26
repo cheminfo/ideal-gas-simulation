@@ -1,6 +1,7 @@
 import p2 from 'p2';
 import {restitutionMaterial, world} from './p2Globals';
 import {width, height} from './constants';
+import {setBody} from './bodies';
 
 export function addCircle(options) {
     options = fillOptions(options);
@@ -10,6 +11,8 @@ export function addCircle(options) {
         mass: 1,
         ...options,
     });
+    setBody(circleBody, options);
+    console.log(circleBody.id);
     circleBody.addShape(circleShape);
     // Remove damping from the ball, so it does not lose energy
     circleBody.damping = 0;

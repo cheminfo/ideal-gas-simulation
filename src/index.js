@@ -5,7 +5,8 @@ import {animate} from './animation';
 grid({x: -180, y: -180, rows: 10, columns: 10, rowGap: 30, columnGap: 30}, position => {
     addCircle({
         position,
-        radius: 5
+        radius: 5,
+        color: 'red'
     });
 });
 addPlane({
