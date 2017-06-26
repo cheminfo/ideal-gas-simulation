@@ -2,8 +2,7 @@ const p2 = require('p2');
 
 p2.Broadphase.prototype.hasCollisionWith = function (body) {
     var bodies = this.axisList,
-        result = this.result,
-        axisIndex = this.axisIndex;
+        result = this.result;
 
     result.length = 0;
 

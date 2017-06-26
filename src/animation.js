@@ -4,7 +4,7 @@ import {render} from './canvas';
 // Animation loop
 let count = 0;
 let stepSize = 1 / 60;
-let paused = false;
+let stopped = false;
 
 export function step() {
     // Move physics bodies forward in time
@@ -13,19 +13,22 @@ export function step() {
     render(world);
 }
 
-export function animate(force) {
-    if(!force && paused) return;
+function animate() {
+    if(stopped){
+        return;
+    }
     count++;
     requestAnimationFrame(animate);
     step();
 }
 
-export function pause() {
-    paused = true;
+export function stop() {
+    stopped = true;
 }
 
 export function resume() {
-    paused = false;
+    stopped = false;
+    animate();
 }
 
 export function setStep(size) {

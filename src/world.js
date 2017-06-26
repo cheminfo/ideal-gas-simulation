@@ -3,7 +3,7 @@ import {restitutionMaterial, world} from './p2Globals';
 import {width, height} from './constants';
 import {setBody} from './bodies';
 
-export function addCircle(options) {
+function createCircleBody(options) {
     options = fillOptions(options);
     const circleShape = new p2.Circle({radius: options.radius});
     circleShape.material = restitutionMaterial;
@@ -12,12 +12,23 @@ export function addCircle(options) {
         ...options,
     });
     setBody(circleBody, options);
-    console.log(circleBody.id);
     circleBody.addShape(circleShape);
     // Remove damping from the ball, so it does not lose energy
     circleBody.damping = 0;
     circleBody.angularDamping = 0;
+    return circleBody;
+}
 
+export function addCircle(options) {
+    let circleBody = createCircleBody(options);
+    // Collision test
+    let collision;
+    let count = 0;
+    while (collision = world.broadphase.hasCollisionWith(circleBody)) {
+        count++;
+        circleBody = createCircleBody(options);
+        if(count > 100) throw new Error('Could not place body without collision')
+    }
     world.addBody(circleBody);
 }
 
@@ -35,21 +46,21 @@ export function addPlane(options) {
 }
 
 function getRandomPosition() {
-    const x = Math.random() * width;
-    const y = Math.random() * height;
+    const x = (Math.random() - 0.5) * 0.9 * width ;
+    const y = (Math.random() - 0.5) * 0.9 * height;
     return [x, y];
 }
 
 function getRandomVelocity() {
-    return [Math.random() * width, Math.random() * height];
+    return [(Math.random() - 0.5) * width, (Math.random() - 0.5) * height];
 }
 
 function fillOptions(options) {
     options = Object.assign({}, options);
-    if(!options.position) {
+    if(options.position === 'random') {
         options.position = getRandomPosition();
     }
-    if(!options.velocity) {
+    if(options.velocity === 'random') {
         options.velocity = getRandomVelocity();
     }
     return options;

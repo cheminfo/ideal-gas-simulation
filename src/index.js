@@ -1,14 +1,18 @@
-import {addPlane, addCircle, grid} from './world';
-import {animate} from './animation';
+import {addPlane, addCircle} from './world';
+import {resume, stop} from './animation';
+import './buttons';
 
 // Add a circle
-grid({x: -180, y: -180, rows: 10, columns: 10, rowGap: 30, columnGap: 30}, position => {
+const nbPoints = 100;
+
+for(let i=0; i<nbPoints; i++) {
     addCircle({
-        position,
+        position: 'random',
         radius: 5,
-        color: 'red'
+        color: 'red',
+        velocity: 'random'
     });
-});
+}
 addPlane({
     position: [190, -190],
     velocity: [0, 0]
@@ -29,6 +33,7 @@ addPlane({
     velocity: [0, 0]
 });
 
-animate();
+resume();
+stop();
 
 
