@@ -1,14 +1,22 @@
 import p2 from 'p2';
 import {restitutionMaterial, world} from './p2Globals';
-import {width, height} from './constants';
+import {width, height} from '../constants';
 import {setBody} from './bodies';
+import {addShapeMaxCount} from '../constants';
+
+const defaultCircleOptions = {
+    mass: 1,
+    color: 'black',
+    radius: 5,
+    position: 'random'
+};
 
 function createCircleBody(options) {
     options = fillOptions(options);
     const circleShape = new p2.Circle({radius: options.radius});
     circleShape.material = restitutionMaterial;
     const circleBody = new p2.Body({
-        mass: 1,
+        mass: options.mass,
         ...options,
     });
     setBody(circleBody, options);
@@ -20,15 +28,16 @@ function createCircleBody(options) {
 }
 
 export function addCircle(options) {
+    options = Object.assign({}, defaultCircleOptions, options);
     let circleBody = createCircleBody(options);
     // Collision test
-    let collision;
-    let count = 0;
-    while (collision = world.broadphase.hasCollisionWith(circleBody)) {
-        count++;
-        circleBody = createCircleBody(options);
-        if(count > 100) throw new Error('Could not place body without collision')
-    }
+    // let collision;
+    // let count = 0;
+    // while (collision = world.broadphase.hasCollisionWith(circleBody)) {
+    //     count++;
+    //     circleBody = createCircleBody(options);
+    //     if(count > addShapeMaxCount) throw new Error('Could not place body without collision')
+    // }
     world.addBody(circleBody);
 }
 

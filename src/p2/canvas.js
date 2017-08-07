@@ -1,5 +1,5 @@
 import {world} from './p2Globals';
-import {height as h, width as w} from './constants';
+import {height as h, width as w} from '../constants';
 import {bodies} from './bodies';
 import p2 from 'p2';
 // Init canvas
