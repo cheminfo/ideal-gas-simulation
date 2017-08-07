@@ -1,6 +1,6 @@
 import {addPlane, addCircle} from './world';
 import {resume, stop} from './animation';
-import './buttons';
+import './cell.js';
 
 // Add a circle
 const nbPoints = 100;
