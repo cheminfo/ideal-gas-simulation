@@ -25,17 +25,14 @@ export function velocityHistogram(options) {
 
 function doHistogram(values, options) {
     const slots = Array.from({length: options.slots}).fill(0);
-    const bins = Array.from({length: options.slots});
+    const bins = Array.from({length: options.slots}).map(() => ({}));
     const [min, max] = [mlmin(values), mlmax(values)];
     const width = max - min;
     const binWidth = width / options.slots;
     bins.forEach((bin, idx) => {
-        const r = {
-            min: min + idx * binWidth,
-            max: min + (options.slots - idx) * binWidth
-        };
-        r.value = r.min + (r.max - r.min) / 2;
-        return r;
+        bin.min = min + idx * binWidth;
+        bin.max = bin.min + binWidth;
+        bin.value = bin.min + (bin.max - bin.min) / 2;
     });
     for (const value of values) {
         if(value === max) {
@@ -45,8 +42,9 @@ function doHistogram(values, options) {
         const slot = Math.floor((value - min) / binWidth);
         slots[slot]++;
     }
+
     return {
-        values: slots,
+        values: slots.map(slot => slot / values.length),
         bins
     };
 }
