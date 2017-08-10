@@ -1,5 +1,5 @@
-export const width = 400;
-export const height = 400;
+export const width = 1200;
+export const height = 800;
 
 export const atomTypes = {
     helium: {mass: 4, color: 'orange'},

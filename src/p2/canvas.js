@@ -1,6 +1,6 @@
 import {world} from './p2Globals';
 import {height as h, width as w} from '../constants';
-import {bodies} from './bodies';
+import {indexedBodies} from './bodies';
 import p2 from 'p2';
 // Init canvas
 export const canvas = document.getElementById("myCanvas");
@@ -11,9 +11,9 @@ export const ctx = canvas.getContext("2d");
 ctx.lineWidth = 1;
 
 function setCtxColor(body) {
-    const options = bodies[body.id];
-    if(options === undefined) return;
-    ctx.fillStyle = options.color || 'black';
+    body = indexedBodies[body.id];
+    if(body.options === undefined) return;
+    ctx.fillStyle = body.options.color || 'black';
     ctx.fill();
 }
 
@@ -23,8 +23,12 @@ function drawCircle(body, shape) {
         y = body.position[1],
         radius = shape.radius;
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
-    ctx.stroke();
     setCtxColor(body);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + radius * Math.cos(body.angle), y + radius * Math.sin(body.angle));
+    ctx.stroke();
 }
 
 function drawPlane(body, shape) {

@@ -1,5 +1,6 @@
 import animControl from './animControl';
 import atomsControl from './atomsControl';
+import sparklines from './sparklines';
 
 window.el = {
     $cell: true,
@@ -10,6 +11,9 @@ window.el = {
         },
         {
             $components: atomsControl
+        },
+        {
+            $components: sparklines
         }
     ]
 };

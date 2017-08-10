@@ -19,7 +19,7 @@ export default [
         value: "Add circle random",
         onclick: function() {
             addAtom({
-                type: document.getElementById('atomTypeSelection').value,
+                kind: document.getElementById('atomTypeSelection').value,
             });
         }
     },

@@ -1,5 +1,7 @@
 import {world} from './p2Globals';
 import {render} from './canvas';
+import {updateSparklines} from "../cell/sparklines";
+import {velocityHistogram} from "./stats";
 
 // Animation loop
 let count = 0;
@@ -12,6 +14,7 @@ export function step() {
     world.step(stepSize);
     // Render the current state
     render(world);
+    updateSparklines(velocityHistogram({slots: 10}));
 }
 
 function animate() {

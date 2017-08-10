@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jquery": "^3.2.1",
+    "lodash.groupby": "^4.6.0",
+    "ml-array-max": "^1.0.1",
+    "ml-array-min": "^1.0.1",
     "p2": "^0.7.1"
   },
   "devDependencies": {

@@ -2,12 +2,12 @@ import {addCircle} from './world';
 import {atomTypes} from '../constants';
 import {temperature, kNorm} from '../constants';
 export const addAtom = function(options) {
-    if(atomTypes[options.type]) {
-        options = Object.assign({}, options, atomTypes[options.type]);
+    if(atomTypes[options.kind]) {
+        options = Object.assign({}, options, atomTypes[options.kind]);
     }
-    delete options.type;
     if(!options.radius) {
-        options.radius = Math.sqrt(options.mass) * 2;
+        options.radius = 1;
+        // options.radius = Math.sqrt(options.mass) * 2;
     }
 
     if(options.mass) {
