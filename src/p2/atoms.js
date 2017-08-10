@@ -16,8 +16,13 @@ export const addAtom = function(options) {
         const vSquared =  3 * kNorm * temperature / options.mass; // v^2 = 3kT/m, but we suppress constants (scale...)
         const vx = Math.sqrt(vSquared / (1 + c * c));
         const vy = c * vx;
-        options.velocity = [vx, vy];
+        options.velocity = [randomSign() * vx, randomSign() * vy];
     }
 
     addCircle(options);
 };
+
+
+function randomSign() {
+    return Math.random() - 0.5 > 0 ? 1 : -1
+}
