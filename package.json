@@ -2,7 +2,6 @@
   "name": "ideal-gas-simulation",
   "version": "0.0.0",
   "description": "Simulate ideal gas law with floating particles",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "mkdir -p dist && cp src/index.html dist/index.html && webpack",

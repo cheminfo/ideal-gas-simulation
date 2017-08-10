@@ -1,5 +1,6 @@
 const p2 = require('p2');
 
+// This does not work...
 p2.Broadphase.prototype.hasCollisionWith = function (body) {
     var bodies = this.axisList,
         result = this.result;

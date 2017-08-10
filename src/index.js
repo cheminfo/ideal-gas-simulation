@@ -1,16 +1,13 @@
-import {addPlane, addCircle} from './p2/world';
+import {addPlane} from './p2/world';
+import {addAtom} from './p2/atoms';
 import {resume, stop} from './p2/animation';
 import './cell/cell';
 
 // Add a circle
-const nbPoints = 100;
-
+const nbPoints = 5;
 for(let i=0; i<nbPoints; i++) {
-    addCircle({
-        position: 'random',
-        radius: 5,
-        color: 'red',
-        velocity: 'random'
+    addAtom({
+        type: 'helium'
     });
 }
 addPlane({
