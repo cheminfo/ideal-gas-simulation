@@ -15,21 +15,21 @@ for(let i=0; i<nbPoints; i++) {
 
 }
 addPlane({
-    position: [width / 2 - 10, - width / 2 + 10],
+    position: [width / 2, -height / 2],
     velocity: [0, 0]
 });
 addPlane({
-    position: [width / 2 - 10, - width / 2 + 10],
+    position: [width / 2, -height / 2],
     angle: Math.PI / 2,
     velocity: [0, 0]
 });
 addPlane({
-    position: [- width / 2 + 10, width / 2 - 10],
+    position: [- width / 2, height / 2],
     angle: Math.PI,
     velocity: [0, 0]
 });
 addPlane({
-    position: [- width / 2 + 10, width / 2 - 10],
+    position: [- width / 2, height / 2],
     angle: -Math.PI / 2,
     velocity: [0, 0]
 });
