@@ -1,6 +1,7 @@
 import animControl from './animControl';
 import atomsControl from './atomsControl';
 import sparklines from './sparklines';
+import frameRate from './frameRate';
 
 window.el = {
     $cell: true,
@@ -14,6 +15,7 @@ window.el = {
         },
         {
             $components: sparklines
-        }
+        },
+        frameRate
     ]
 };

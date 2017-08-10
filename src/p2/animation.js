@@ -2,19 +2,30 @@ import {world} from './p2Globals';
 import {render} from './canvas';
 import {updateSparklines} from "../cell/sparklines";
 import {velocityHistogram} from "./stats";
+import {updateFrameRate} from '../cell/frameRate';
 
 // Animation loop
 let count = 0;
 let stepSize = 1 / 60;
 let stopped = true;
+let frames = 0;
+let date = Date.now();
 
 export function step() {
     count++;
+    frames++;
     // Move physics bodies forward in time
     world.step(stepSize);
     // Render the current state
     render(world);
     updateSparklines(velocityHistogram({slots: 10}));
+
+    const now = Date.now();
+    if(now - date > 1000) {
+        updateFrameRate(Math.round(frames / (now - date) * 1000));
+        date = now;
+        frames = 0;
+    }
 }
 
 function animate() {
