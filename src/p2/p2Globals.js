@@ -11,7 +11,8 @@ export const world = new p2.World({
 
 world.addContactMaterial(new p2.ContactMaterial(restitutionMaterial, restitutionMaterial, {
     restitution: 1,
-    stiffness: Number.MAX_VALUE
+    stiffness: Number.MAX_VALUE,
+    friction: 0
 }));
 
 world.on('postBroadphase', function (data) {

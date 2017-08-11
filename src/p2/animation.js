@@ -2,7 +2,7 @@ import {world} from './p2Globals';
 import {render} from './canvas';
 import {updateSparklines} from "../cell/sparklines";
 import {velocityHistogram} from "./stats";
-import {updateFrameRate} from '../cell/frameRate';
+import {updateFrameRate, updateTotalEnergy} from '../cell/frameRate';
 
 // Animation loop
 let count = 0;
@@ -18,7 +18,8 @@ export function step() {
     world.step(stepSize);
     // Render the current state
     render(world);
-    updateSparklines(velocityHistogram({slots: 10}));
+    updateSparklines(velocityHistogram({slots: 20}));
+    updateTotalEnergy();
 
     const now = Date.now();
     if(now - date > 1000) {
@@ -32,6 +33,7 @@ function animate() {
     if(stopped){
         return;
     }
+    // setImmediate(animate);
     requestAnimationFrame(animate);
     step();
 }

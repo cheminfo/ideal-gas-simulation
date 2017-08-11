@@ -6,7 +6,7 @@ export const addAtom = function(options) {
         options = Object.assign({}, options, atomTypes[options.kind]);
     }
     if(!options.radius) {
-        options.radius = 1;
+        options.radius = 3;
         // options.radius = Math.sqrt(options.mass) * 2;
     }
 

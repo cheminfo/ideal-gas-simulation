@@ -17,6 +17,7 @@ function createCircleBody(options) {
     circleShape.material = restitutionMaterial;
     const circleBody = new p2.Body({
         mass: options.mass,
+        fixedRotation: true,
         ...options,
     });
     setBody(circleBody, options);

@@ -5,13 +5,13 @@ import {width, height} from "./constants"
 import './cell/cell';
 
 // Add a circle
-const nbPoints = 200;
+const nbPoints = 300;
 for(let i=0; i<nbPoints; i++) {
     addAtom({kind: 'helium'});
-    addAtom({kind: 'neon'});
-    addAtom({kind: 'argon'});
-    addAtom({kind: 'krypton'});
-    addAtom({kind: 'xenon'});
+    // addAtom({kind: 'neon'});
+    // addAtom({kind: 'argon'});
+    // addAtom({kind: 'krypton'});
+    // addAtom({kind: 'xenon'});
 
 }
 addPlane({

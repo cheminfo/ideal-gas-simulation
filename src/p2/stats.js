@@ -24,9 +24,16 @@ export function velocityHistogram(options) {
 }
 
 function doHistogram(values, options) {
+    const valuesFiltered = [];
     const slots = Array.from({length: options.slots}).fill(0);
     const bins = Array.from({length: options.slots}).map(() => ({}));
-    const [min, max] = [mlmin(values), mlmax(values)];
+    let min, max;
+    if(!options.min) {
+        min = mlmin(values);
+    }
+    if(!options.max) {
+        max = mlmax(values);
+    }
     const width = max - min;
     const binWidth = width / options.slots;
     bins.forEach((bin, idx) => {
@@ -35,6 +42,8 @@ function doHistogram(values, options) {
         bin.value = bin.min + (bin.max - bin.min) / 2;
     });
     for (const value of values) {
+        if(value > max) continue;
+        valuesFiltered.push(value);
         if(value === max) {
             slots[options.slots-1]++;
             continue;
@@ -44,11 +53,22 @@ function doHistogram(values, options) {
     }
 
     return {
-        values: slots.map(slot => slot / values.length),
-        bins
+        count: slots,
+        values: slots.map(slot => slot / valuesFiltered.length),
+        bins,
+        N: valuesFiltered.length
     };
 }
 
 function rootSquare(x) {
     return Math.sqrt(x[0] * x[0] + x[1] * x[1]);
+}
+
+export function getTotalEnergy() {
+    let totalEnergy = 0;
+    for(const body of bodies) {
+        const v = body.body.velocity;
+        totalEnergy += v[0] * v[0] + v[1] * v[1];
+    }
+    return totalEnergy
 }
