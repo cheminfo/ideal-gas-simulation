@@ -6,17 +6,15 @@ export const addAtom = function(options) {
         options = Object.assign({}, options, atomTypes[options.kind]);
     }
     if(!options.radius) {
-        options.radius = 3;
+        options.radius = 6;
         // options.radius = Math.sqrt(options.mass) * 2;
     }
 
     if(options.mass) {
         // Randomly choose a direction
-        const c = Math.random() /  Math.random();
-        const vSquared =  3 * kNorm * temperature / options.mass; // v^2 = 3kT/m, but we suppress constants (scale...)
-        const vx = Math.sqrt(vSquared / (1 + c * c));
-        const vy = c * vx;
-        options.velocity = [randomSign() * vx, randomSign() * vy];
+        const v =  Math.sqrt(3 * kNorm * temperature / options.mass); // v^2 = 3kT/m, but we suppress constants (scale...)
+        const angle = Math.random() * 2 * Math.PI;
+        options.velocity = [v * Math.cos(angle), v * Math.sin(angle)];
     }
 
     addCircle(options);

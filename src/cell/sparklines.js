@@ -1,8 +1,9 @@
-import {atomTypes, kNorm, temperature} from '../constants';
+import {atomTypes} from '../constants';
 import max from 'ml-array-max';
 import min from 'ml-array-min';
+import {maxwellBolzmannPDF} from '../util/maths';
 
-const totalCount = [];
+let totalCount = [];
 let overallTotal = 0;
 
 export default Object.keys(atomTypes).map(atomType => {
@@ -19,6 +20,20 @@ export const prob = Object.keys(atomTypes).map(atomType => {
     }
 });
 
+export const reset = {
+    $type: 'button',
+    value: 'reset',
+    $html: 'reset',
+    onclick: function() {
+        resetDistribution();
+    }
+};
+
+export function resetDistribution() {
+    totalCount = [];
+    overallTotal = 0;
+}
+
 export function updateSparklines(data) {
     Object.keys(data).forEach(key => updateSparkline(data[key]));
 }
@@ -31,7 +46,7 @@ function updateSparkline({kind, histogram}) {
     });
 
     const prob = totalCount.map(v => v / overallTotal);
-    let theoValues = histogram.bins.map(bin => maxwellBolztmann(bin.value, kind));
+    let theoValues = histogram.bins.map(bin => maxwellBolzmannPDF(bin.value, kind));
     const theoSum = theoValues.reduce((a, b) => a + b, 0);
     theoValues = theoValues.map(v => v / theoSum);
     $(`#sparkline-${kind}`)
@@ -42,9 +57,4 @@ function updateSparkline({kind, histogram}) {
     const chartRangeMin = min([...prob, ...theoValues]);
     $(`#sparkline-prob-${kind}`).sparkline(prob, {chartRangeClip: true, chartRangeMin, chartRangeMax ,width: 200, type: 'line', height: 100, lineColor: atomTypes[kind].color})
         .sparkline(theoValues, {chartRangeClip: true, chartRangeMin, chartRangeMax, type: 'line', height: 100, lineColor: 'blue', composite: true, fillColor: null});
-}
-
-function maxwellBolztmann(x, kind) {
-    const mass = atomTypes[kind].mass;
-    return Math.sqrt(Math.pow(mass / (2 * Math.PI * kNorm * temperature), 3)) * 4 * Math.PI * x * x * Math.exp(-mass * x * x / (2 * kNorm * temperature));
 }

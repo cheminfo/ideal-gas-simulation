@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {getTotalEnergy} from "../p2/stats";
+import {getMeanEnergy} from "../p2/stats";
 export default {
     $type: 'div',
     $components: [
@@ -22,5 +22,5 @@ export function updateFrameRate(val) {
 }
 
 export function updateTotalEnergy() {
-    $('#total-energy').html(`total energy: ${getTotalEnergy()}`);
+    $('#total-energy').html(`total energy: ${getMeanEnergy()}`);
 }

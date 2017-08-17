@@ -19,3 +19,7 @@ world.on('postBroadphase', function (data) {
     // get collision callback
     // console.log(data.pairs);
 });
+
+world.on('preSolve', function() {
+    debugger;
+});

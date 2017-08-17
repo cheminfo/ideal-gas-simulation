@@ -17,8 +17,8 @@ export function step() {
     // Move physics bodies forward in time
     world.step(stepSize);
     // Render the current state
-    render(world);
-    updateSparklines(velocityHistogram({slots: 20}));
+    // render(world);
+    updateSparklines(velocityHistogram({slots: 20, min: 0, max: 600}));
     updateTotalEnergy();
 
     const now = Date.now();
@@ -33,8 +33,8 @@ function animate() {
     if(stopped){
         return;
     }
-    // setImmediate(animate);
-    requestAnimationFrame(animate);
+    setImmediate(animate);
+    // requestAnimationFrame(animate);
     step();
 }
 
