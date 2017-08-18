@@ -11,7 +11,7 @@ const examples = [
         expectedB: {position: [0, 0], velocity: [1, 0]}
     },
     {
-        description: 'no angle, on is still',
+        description: 'no angle, one body is still, the other is moving',
         bodyA: {position: [-1, 0], velocity: [1, 0]},
         bodyB: {position: [0, 0], velocity: [0, 0]},
         expectedA: {position: [-1, 0], velocity: [0, 0]},
