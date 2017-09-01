@@ -33,8 +33,8 @@ function animate() {
     if(stopped){
         return;
     }
-    setImmediate(animate);
-    // requestAnimationFrame(animate);
+    // setImmediate(animate);
+    requestAnimationFrame(animate);
     step();
 }
 
