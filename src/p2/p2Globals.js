@@ -21,5 +21,5 @@ world.on('postBroadphase', function (data) {
 });
 
 world.on('preSolve', function() {
-    debugger;
+
 });
