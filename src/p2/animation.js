@@ -17,7 +17,7 @@ export function step() {
     // Move physics bodies forward in time
     world.step(stepSize);
     // Render the current state
-    // render(world);
+    render(world);
     updateSparklines(velocityHistogram({slots: 20, min: 0, max: 600}));
     updateTotalEnergy();
 

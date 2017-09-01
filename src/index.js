@@ -5,10 +5,10 @@ import {width, height} from "./constants"
 import './cell/cell';
 
 // Add a circle
-const nbPoints = 400;
+const nbPoints = 100;
 for(let i=0; i<nbPoints; i++) {
     addAtom({kind: 'helium'});
-    // addAtom({kind: 'neon'});
+    addAtom({kind: 'neon'});
     // addAtom({kind: 'argon'});
     // addAtom({kind: 'krypton'});
     // addAtom({kind: 'xenon'});

@@ -16,8 +16,6 @@ export default function broadphase(bodies) {
             }
         }
     }
-
-
 }
 
 function canCollide(bodyA, bodyB) {
